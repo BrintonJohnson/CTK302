@@ -20,5 +20,3 @@ function mouseReleased() {
     song1.loop();
   }
 }
-
-//reload
