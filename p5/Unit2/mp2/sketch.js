@@ -289,5 +289,5 @@ function touchStarted() {
 }
 
 // 10/1/20 Thursday 2 pm - 4:30 pm, 6:30 pm - 8:30 pm
-// 10/6/20 Tuesday 11:30 am -
+// 10/6/20 Tuesday 11:30 am - 12 pm
 // CODE FREEZE: 10/7/20 Wednesday 8:00 pm
