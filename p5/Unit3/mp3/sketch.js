@@ -1,4 +1,5 @@
 var background, bubble, fish1R, fish1L, fish2R, fish2L, fish3R, fish3L, lose, mainfish, mainfishR, mainfishL, seaweed, titlescreen, win;
+let bubbleSound, gameSong, loseSong, highC, lowC, titleSong, winSong;
 let cars = [];
 let maxCars = 10;
 let frogPos;
@@ -11,6 +12,31 @@ let mySize = 0.5;
 let bubbles = [];
 let maxBubbles = 6;
 let f;
+
+function preload() {
+  bubbleSound = loadSound("assets/bubble.mp3");
+  gameSong = loadSound("assets/gamesong.mp3");
+  loseSong = loadSound("assets/losesong.mp3");
+  highC = loadSound("assets/pianoHighC.mp3");
+  lowC = loadSound("assets/pianoLowC.mp3");
+  titleSong = loadSound("assets/titlesong.mp3");
+  winSong = loadSound("assets/winsong.mp3");
+
+  bubbleSound.play();
+  bubbleSound.stop();
+  gameSong.play();
+  gameSong.stop();
+  loseSong.play();
+  loseSong.stop();
+  highC.play();
+  highC.stop();
+  lowC.play();
+  lowC.stop();
+  titleSong.play();
+  titleSong.stop();
+  winSong.play();
+  winSong.stop();
+}
 
 function setup() {
   createCanvas(600, 600);
@@ -54,67 +80,111 @@ function setup() {
 function draw() {
   switch (state) {
     case 0:
+      titleSong.play();
+      state = 1;
+      break;
+
+    case 1:
       image(titlescreen, width / 2, height / 2, width, height);
       break;
 
       // Objective
-    case 1:
+    case 2:
       image(background, width / 2, height / 2, width, height);
       textFont(f);
       textSize(50);
       fill("white");
       text("Eat all of the fish\nbefore time runs out!", width / 2, height / 2);
       countdown++;
-      if (countdown > 3 * 60) {
-        state = 2;
-      }
-      break;
-
-      // countdown starts
-    case 2:
-      image(background, width / 2, height / 2, width, height);
-      textSize(80);
-      text("3", width / 2, height / 2);
-      countdown++;
-      if (countdown > 4 * 60) {
+      if (countdown > 2 * 60) {
         state = 3;
       }
       break;
 
+      // countdown starts
     case 3:
-    image(background, width / 2, height / 2, width, height);
-    text("2", width / 2, height / 2);
-    countdown++;
-    if (countdown > 5 * 60) {
+      lowC.play();
       state = 4;
-    }
       break;
 
     case 4:
-    image(background, width / 2, height / 2, width, height);
-    text("1", width / 2, height / 2);
-    countdown++;
-    if (countdown > 6 * 60) {
-      state = 5;
-    }
+      image(background, width / 2, height / 2, width, height);
+      textSize(80);
+      text("3", width / 2, height / 2);
+      countdown++;
+      if (countdown > 3 * 60) {
+        state = 5;
+      }
       break;
 
-      // game starts
     case 5:
-      game();
-      timer++;
-      if (timer > 10 * 60) {
+      lowC.play();
+      state = 6;
+      break;
+
+    case 6:
+      image(background, width / 2, height / 2, width, height);
+      text("2", width / 2, height / 2);
+      countdown++;
+      if (countdown > 4 * 60) {
         state = 7;
       }
       break;
 
+    case 7:
+      lowC.play();
+      highC.play();
+      // bubbleSound.volume(0.4);
+      bubbleSound.play();
+      state = 8;
+      break;
+
+    case 8:
+      image(background, width / 2, height / 2, width, height);
+      text("1", width / 2, height / 2);
+      countdown++;
+      if (countdown > 5 * 60) {
+        state = 9;
+      }
+      break;
+
+      // game starts
+
+    case 9:
+      gameSong.play();
+      state = 10;
+      break;
+
+    case 10:
+      game();
+      timer++;
+      if (timer > 10 * 60) {
+        state = 13;
+      }
+      break;
+
       // win
-    case 6:
+
+    case 11:
+      bubbleSound.stop();
+      gameSong.stop();
+      winSong.play();
+      state = 12;
+      break;
+
+    case 12:
       image(win, width / 2, height / 2, width, height);
       break;
 
+    case 13:
+      bubbleSound.stop();
+      gameSong.stop();
+      loseSong.play();
+      state = 14;
+      break;
+
       // lose
-    case 7:
+    case 14:
       image(lose, width / 2, height / 2, width, height);
       break;
   }
@@ -142,7 +212,7 @@ function game() {
   }
 
   if (cars.length == 0) {
-    state = 6;
+    state = 11;
   }
 
   // draw the main fish
@@ -169,6 +239,7 @@ function resetTheGame() {
   for (let i = 0; i < maxBubbles; i++) {
     bubbles.push(new Bubble());
   }
+
 }
 
 function checkForKeys() {
@@ -180,20 +251,24 @@ function checkForKeys() {
 
 function mouseReleased() {
   switch (state) {
-    case 0:
-      state = 1;
+    case 1:
+      state = 2;
       break;
 
-    case 6: // they won
+    case 12: // they won
       resetTheGame();
       state = 0;
       break;
 
-    case 7: //they lost
+    case 14: //they lost
       resetTheGame();
       state = 0;
       break;
   }
+
+  titleSong.stop();
+  loseSong.stop();
+  winSong.stop();
 }
 
 function keyPressed() {
