@@ -40,7 +40,6 @@ function preload() {
 
 function setup() {
   createCanvas(600, 600);
-  titleSong.play();
   frogPos = createVector(width / 2, height / 2);
   textAlign(CENTER);
   rectMode(CENTER);
@@ -81,6 +80,7 @@ function setup() {
 function draw() {
   switch (state) {
     case 0:
+      titleSong.play();
       state = 1;
       break;
 
