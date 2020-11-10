@@ -1,5 +1,9 @@
 var bubbles = [];
-let vanilla, chocolate, mint, bg;
+let vanilla, chocolate, mint, bg, music;
+
+function preload() {
+  music = loadSound("assets/pianomusic.mp3");
+}
 
 function setup() {
 
@@ -15,13 +19,14 @@ function setup() {
   Tabletop.init(settings); // Grab the data from the spreadsheet!
   // End Tabletop initialization stuff
 
-
   // Regular setup code we usually have
   createCanvas(600, 600);
   textAlign(CENTER);
   ellipseMode(CENTER);
   rectMode(CENTER);
   imageMode(CENTER);
+
+  music.loop();
 
   vanilla = loadImage("assets/vanilla.png");
   chocolate = loadImage("assets/chocolate.png");
