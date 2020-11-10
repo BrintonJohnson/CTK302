@@ -51,7 +51,7 @@ function gotData(data) {
 function draw() {
   background(220);
   image(bg, width/2, height/2, 600, 600);
-  text("Click for Music", 70, 30);
+  text("Click to Play/Pause Music", 90, 30);
 
   // // iterate through the bubbles and display the objects!
   for (let i = 0; i < bubbles.length; i++) {
@@ -61,8 +61,12 @@ function draw() {
 
 }
 
-function mouseIsPressed() {
-    music.play();
+function mouseReleased() {
+  if (music.isPlaying()){
+    music.pause();
+  } else {
+    music.loop();
+  }
 }
 
 // my Bubble class
