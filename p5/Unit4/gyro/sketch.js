@@ -62,7 +62,7 @@ function draw() {
   noStroke();
   textSize(30);
   textAlign(CENTER);
-  text("Don't look behind you!", width / 2, height / 2);
+  text("Watch out for the ghost!", width / 2, height / 2);
 
 }
 
