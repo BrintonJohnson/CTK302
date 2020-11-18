@@ -27,7 +27,7 @@ function draw() {
   // takes your variable and maps it from range 1 to range 2
   // map(yourVar, range1_x, range1_y, range2_x, range2_y) ;
   xPosition = map(gamma, -60, 60, 0, width);
-  yPosition = map(beta, 0, 90, 0, height);
+  yPosition = map(beta, 0, 180, 0, height);
 
   push(); // before you use translate, rotate, or scale commands, push and then pop after
 
@@ -35,7 +35,7 @@ function draw() {
 
   rotate(radians(alpha)); // rotate the bunny depending on the alpha intake
 
-  image(ghostImage, 0, 0, 500, 500);
+  image(ghostImage, 0, 0, 400, 400);
   // rect(0, 0, 100, 100) ;
   pop();
 
@@ -59,7 +59,7 @@ function draw() {
   // Text that makes CTK type in the background
   fill('white');
   noStroke();
-  textSize(50);
+  textSize(30);
   textAlign(CENTER);
   text("Don't look behind you!", width / 2, height / 2);
 
